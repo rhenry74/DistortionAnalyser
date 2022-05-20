@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistortionAnalyser", "GraphicPlayground\DistortionAnalyser.csproj", "{011C6BC6-475A-4C7C-AD08-7DA532147399}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistortionAnalyser", "DistortionAnalyser\DistortionAnalyser.csproj", "{011C6BC6-475A-4C7C-AD08-7DA532147399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

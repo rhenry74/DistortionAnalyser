@@ -20,15 +20,19 @@ namespace DistortionAnalyser
         private void button2_Click(object sender, EventArgs e)
         {
             var display = scope1;
-            //display.Width = int.Parse(tbWidth.Text);
-            //display.Height = int.Parse(tbHeight.Text);
-            display.FPS = int.Parse(tbFPS.Text);
-            display.Time = int.Parse(tbTime.Text);
-            display.Amount = int.Parse(tbAmount.Text);
 
-            IModelDrawer model = new WorldsCollide();
-            display.Model = model;
-            model.Setup(scope1.Width, scope1.Height, display.Amount, display.Host);
+            var scope = new Scope();
+            scope.Signal = new Signal();
+            scope.Signal.YPoints = new float[96];
+            scope.Signal.NumberOfPoints = 96;
+            for (int a = 0; a < 45; a++)
+            {
+                scope.Signal.YPoints[a] = a;
+            }
+            IModelDrawer drawer = scope;
+            
+            display.ModelDrawer = drawer;
+            drawer.Setup(scope1.Width, scope1.Height, 0, display.Host);
             
         }
 

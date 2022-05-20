@@ -12,32 +12,27 @@ using System.Windows.Forms;
 
 namespace DistortionAnalyser
 {
-    public partial class DoubleBufferPlayground : Control
+    public partial class Screen : UserControl
     {
-        public IModelDrawer Model { get; set; }
-        public int FPS { get; set; }
-        public int Time { get; internal set; }
+        public IModelDrawer ModelDrawer { get; set; }
+        public int FPS { get; set; } = 12;
         public int Amount { get; internal set; }
 
         private DirectSound _directSound;
 
         private Stopwatch watch = new Stopwatch();
 
-        public DoubleBufferPlayground()
+        private Timer theTimer = null;
+        private long after;
+        private DateTime StartTime = DateTime.Now;
+
+        public  HostMediator Host;
+        public bool ShowStats = true;
+
+        public Screen()
         {
             InitializeComponent();
-        }
 
-        private void Playground_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (theTimer.Enabled)
-            {
-                Host.AddMouseEvent(e);
-            }
-        }
-
-        public void Load()
-        {
             _directSound = new DirectSound();
 
             // Set Cooperative Level to PRIORITY (priority level can call the SetFormat and Compact methods)
@@ -54,41 +49,23 @@ namespace DistortionAnalyser
 
             this.Host = new HostMediator(this, _directSound);
 
-            Model.Setup(Width, Height, Amount, this.Host);
-
             this.BackColor = Color.Black;
             //this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             watch.Start();
-
-            //timer = new Timer();
-            //timer.Interval = 1000 / 30;
-            //timer.Tick += Timer_Tick;
-            //timer.Start();
 
             theTimer = new Timer();
             theTimer.Interval = (1000 / FPS);
             theTimer.Tick += DrawModel;
             theTimer.Start();
 
-            
-        }
 
-        private Timer theTimer = null;
-        private long after;
-        private DateTime StartTime = DateTime.Now;
-        private HostMediator Host;
-        private bool ShowStats = true;
-        private TimeSpan GameTimer = new TimeSpan(0, 0, 0);
+        }
 
         private void DrawModel(object p1, object p2)
         {
-            if (GameTimer.TotalSeconds > Time)
-            {
-                watch.Stop();
-                theTimer.Stop();
+            if (ModelDrawer == null)
                 return;
-            }
 
             theTimer.Enabled = false;
 
@@ -109,10 +86,7 @@ namespace DistortionAnalyser
 
                 var renderStart = watch.ElapsedMilliseconds;
 
-                Model.DrawOn(g, Host, (int)renderTime);
-
-                GameTimer = GameTimer.Add(TimeSpan.FromMilliseconds(renderTime));
-                Host.SetStatictic("Time", GameTimer.TotalSeconds);
+                ModelDrawer.DrawOn(g, Host, (int)renderTime);
 
                 Host.SetStatictic("Model Update", watch.ElapsedMilliseconds - renderStart);
 
@@ -124,7 +98,7 @@ namespace DistortionAnalyser
                 Host.SetStatictic("Watch", watch.ElapsedMilliseconds);
 
                 if (ShowStats)
-                { 
+                {
                     var yOffset = 0;
                     foreach (var key in Host.Stats.Keys)
                     {
@@ -137,30 +111,8 @@ namespace DistortionAnalyser
 
                 theTimer.Interval = nextInterval;
                 theTimer.Enabled = true;
-            }           
-
-        }
-             
-        private void Playground_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Space)
-            {
-                theTimer.Enabled = !theTimer.Enabled;
-                if (theTimer.Enabled)
-                {
-                    watch.Start();
-                }
-                else
-                {
-                    watch.Stop();
-                }
             }
 
-            if (e.KeyChar == (char)Keys.S)
-            {
-                ShowStats = !ShowStats;
-            }
         }
-
     }
 }
