@@ -1,6 +1,6 @@
 ﻿namespace DistortionAnalyser
 {
-    partial class Scope
+    partial class Screen
     {
         /// <summary> 
         /// Required designer variable.

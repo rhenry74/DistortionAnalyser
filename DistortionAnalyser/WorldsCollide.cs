@@ -90,8 +90,6 @@ namespace DistortionAnalyser
 
         private long CollisionCount = 0;
         private long KillCount = 0;
-        private DateTime LastRan = new DateTime();
-        private int DotGrowElapsed = 0;
         private int Score = 0;        
 
         public bool DrawOn(Graphics g, IHost host, int elapsed)
@@ -103,17 +101,6 @@ namespace DistortionAnalyser
             
             if (DotCollection.Count == 0)
                 return false;
-
-            //if (DotGrowElapsed > 100)//grow 1 dot per second
-            //{
-            //    var aDot = DotCollection[Rnd.Next(0, DotCollection.Count)];
-            //    aDot.Size = aDot.Size + Rnd.Next(1, 6);
-            //    DotGrowElapsed = 0;
-            //}
-            //else
-            //{
-            //    DotGrowElapsed += elapsed;
-            //}
 
             foreach (var dot in StarCollection)
             {
@@ -136,53 +123,7 @@ namespace DistortionAnalyser
             }
             explosionsToRemove.ForEach(exp => ExplosionCollection.Remove(exp));
 
-            var collisions = new List<IModelDrawer>();
-            var detector = new DotCollisionDetector();
-            foreach (var x in DotCollection)
-            {                
-                foreach (var y in DotCollection)
-                {
-                    if (detector.Equals(x,y))
-                    {
-                        if (x.Size > y.Size)
-                        {
-                            if (!collisions.Contains(y))
-                            {
-                                collisions.Add(y);
-                                CollisionCount++;
-                                x.Size = x.Size + y.Size / 2;
-                            }
-                        }
-                        else if (y.Size > x.Size)
-                        {
-                            if (!collisions.Contains(x))
-                            {
-                                collisions.Add(x);
-                                CollisionCount++;
-                                y.Size = y.Size + x.Size / 2;
-                            }
-                        }
-                        else
-                        {
-                            collisions.Add(x);
-                            CollisionCount++;
-                            collisions.Add(y);
-                            CollisionCount++;
-                        }
-                    }
-                }
-            }
-            //replace them with explosions
-            foreach(var dot in collisions)
-            {                
-                ExplosionCollection.Add(new Explosion()
-                {
-                    X = dot.X,
-                    Y = dot.Y,
-                    Size = dot.Size
-                });
-            }
-            collisions.ToList().ForEach(c => DotCollection.Remove(c));            
+                  
 
             //add one every now and then
             var add = Rnd.Next(0, 100);
@@ -201,61 +142,7 @@ namespace DistortionAnalyser
             {
                 var mouseEvent = host.DequeueMouse();
                 var clickPoint = new Rectangle(mouseEvent.Location, new Size(2, 2));
-                var detector = new DotCollisionDetector();
-                var dotsToRemove = new List<IModelDrawer>();
-                bool kill = false;
-                foreach (var x in DotCollection)
-                {
-                    if (detector.Equals(x, clickPoint))
-                    {
-                        dotsToRemove.Add(x);
-                        ExplosionCollection.Add(new Explosion()
-                        {
-                            X = x.X,
-                            Y = x.Y,
-                            Size = x.Size
-                        });
-
-                        Score = Score + ((200 - x.Size > 10) ? 200 - x.Size : 10);
-                        if(mouseEvent.Location.X < host.Width / 3)
-                        {
-                            LeftHitPlayer.Play();
-                        }
-                        else if(mouseEvent.Location.X > host.Width / 3 * 2)
-                        {
-                            RightHitPlayer.Play();
-                        }
-                        else
-                        {
-                            CenterHitPlayer.Play();
-                        }
-                        
-                        kill = true;
-                        KillCount++;
-                    }
-                    
-                }
-                foreach(var toRemove in dotsToRemove)
-                {
-                    DotCollection.Remove(toRemove);
-                }
-
-                if (!kill)
-                {
-                    Score = Score - 100;
-                    if (mouseEvent.Location.X < host.Width / 3)
-                    {
-                        LeftMissPlayer.Play();
-                    }
-                    else if (mouseEvent.Location.X > host.Width / 3 * 2)
-                    {
-                        RightMissPlayer.Play();
-                    }
-                    else
-                    {
-                        CenterMissPlayer.Play();
-                    }
-                }
+                
             }
         }
     }
