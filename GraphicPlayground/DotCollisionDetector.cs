@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace GraphicPlayground
+namespace DistortionAnalyser
 {
     internal class DotCollisionDetector : IEqualityComparer<IModelDrawer>
     {

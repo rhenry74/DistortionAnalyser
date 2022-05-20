@@ -9,15 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GraphicPlayground
+namespace DistortionAnalyser
 {
-    public class DialogHostMediator : IHost
+    public class HostMediator : IHost
     {
-        private Form _Form;
+        private Control _Form;
         private Dictionary<string,string> _Stats;
         private DirectSound _DirectSound;
 
-        public DialogHostMediator(Form form, DirectSound directSound)
+        public HostMediator(Control form, DirectSound directSound)
         {
             _Form = form;
             _Stats = new Dictionary<string, string>();

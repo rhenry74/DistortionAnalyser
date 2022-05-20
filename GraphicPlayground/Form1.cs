@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GraphicPlayground
+namespace DistortionAnalyser
 {
     public partial class Form1 : Form
     {
@@ -17,21 +17,19 @@ namespace GraphicPlayground
             InitializeComponent();
         }
 
-        
-
         private void button2_Click(object sender, EventArgs e)
         {
-            var display = new DoubleBufferPlayground();
-            display.Width = int.Parse(tbWidth.Text);
-            display.Height = int.Parse(tbHeight.Text);
+            var display = scope1;
+            //display.Width = int.Parse(tbWidth.Text);
+            //display.Height = int.Parse(tbHeight.Text);
             display.FPS = int.Parse(tbFPS.Text);
             display.Time = int.Parse(tbTime.Text);
             display.Amount = int.Parse(tbAmount.Text);
 
             IModelDrawer model = new WorldsCollide();
-            display.Model = model;            
-
-            display.ShowDialog(this);
+            display.Model = model;
+            model.Setup(scope1.Width, scope1.Height, display.Amount, display.Host);
+            
         }
 
        
