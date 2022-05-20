@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GraphicPlayground
+namespace DistortionAnalyser
 {
     public class Explosion : IModelDrawer
     {

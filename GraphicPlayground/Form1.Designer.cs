@@ -1,4 +1,6 @@
-﻿namespace GraphicPlayground
+﻿
+
+namespace DistortionAnalyser
 {
     partial class Form1
     {
@@ -39,11 +41,12 @@
             this.tbFPS = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tbTime = new System.Windows.Forms.TextBox();
+            this.scope1 = new DistortionAnalyser.Scope();
             this.SuspendLayout();
             // 
             // tbWidth
             // 
-            this.tbWidth.Location = new System.Drawing.Point(314, 67);
+            this.tbWidth.Location = new System.Drawing.Point(12, 233);
             this.tbWidth.Name = "tbWidth";
             this.tbWidth.Size = new System.Drawing.Size(100, 20);
             this.tbWidth.TabIndex = 1;
@@ -52,7 +55,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(314, 48);
+            this.label1.Location = new System.Drawing.Point(12, 214);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 2;
@@ -61,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(314, 101);
+            this.label2.Location = new System.Drawing.Point(12, 267);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 4;
@@ -69,7 +72,7 @@
             // 
             // tbHeight
             // 
-            this.tbHeight.Location = new System.Drawing.Point(314, 120);
+            this.tbHeight.Location = new System.Drawing.Point(12, 286);
             this.tbHeight.Name = "tbHeight";
             this.tbHeight.Size = new System.Drawing.Size(100, 20);
             this.tbHeight.TabIndex = 3;
@@ -78,7 +81,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(314, 152);
+            this.label3.Location = new System.Drawing.Point(12, 318);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 6;
@@ -86,7 +89,7 @@
             // 
             // tbAmount
             // 
-            this.tbAmount.Location = new System.Drawing.Point(314, 171);
+            this.tbAmount.Location = new System.Drawing.Point(12, 337);
             this.tbAmount.Name = "tbAmount";
             this.tbAmount.Size = new System.Drawing.Size(100, 20);
             this.tbAmount.TabIndex = 5;
@@ -94,7 +97,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(415, 13);
+            this.button2.Location = new System.Drawing.Point(12, 78);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -105,7 +108,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(151, 48);
+            this.label4.Location = new System.Drawing.Point(12, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 13);
             this.label4.TabIndex = 9;
@@ -113,7 +116,7 @@
             // 
             // tbFPS
             // 
-            this.tbFPS.Location = new System.Drawing.Point(151, 67);
+            this.tbFPS.Location = new System.Drawing.Point(12, 34);
             this.tbFPS.Name = "tbFPS";
             this.tbFPS.Size = new System.Drawing.Size(100, 20);
             this.tbFPS.TabIndex = 8;
@@ -122,7 +125,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(314, 203);
+            this.label5.Location = new System.Drawing.Point(12, 369);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(30, 13);
             this.label5.TabIndex = 11;
@@ -130,17 +133,32 @@
             // 
             // tbTime
             // 
-            this.tbTime.Location = new System.Drawing.Point(314, 222);
+            this.tbTime.Location = new System.Drawing.Point(12, 388);
             this.tbTime.Name = "tbTime";
             this.tbTime.Size = new System.Drawing.Size(100, 20);
             this.tbTime.TabIndex = 10;
             this.tbTime.Text = "60";
             // 
+            // scope1
+            // 
+            this.scope1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scope1.BackColor = System.Drawing.Color.Black;
+            this.scope1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scope1.FPS = 24;
+            this.scope1.Location = new System.Drawing.Point(133, 15);
+            this.scope1.Model = null;
+            this.scope1.Name = "scope1";
+            this.scope1.Size = new System.Drawing.Size(1339, 734);
+            this.scope1.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1484, 761);
+            this.Controls.Add(this.scope1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbTime);
             this.Controls.Add(this.label4);
@@ -171,6 +189,7 @@
         private System.Windows.Forms.TextBox tbFPS;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbTime;
+        private Scope scope1;
     }
 }
 
