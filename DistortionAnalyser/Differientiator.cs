@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DistortionAnalyser
 {
-    internal class Scope : IModelDrawer
+    internal class Differientiator : IModelDrawer
     {
         public Signal Signal { get; set; }
         public Signal Reference { get; set; }
@@ -17,18 +17,11 @@ namespace DistortionAnalyser
 
         private Color SignalColor;
         private Pen SignalPen;
-        private Color ReferenceColor;
-        private Pen ReferencePen;
 
         public bool DrawOn(Graphics g, IHost host, int elapsed)
         {
-            RenderSignal(Signal, g, host, SignalPen, true);
-            RenderSignal(Reference, g, host, ReferencePen);
-            return true;
-        }
+            var signal = SubtractSignals();
 
-        private void RenderSignal(Signal signal, Graphics g, IHost host, Pen pen, bool statPeaks = false)
-        {
             float yOffset = host.Height / 2;
             int index = HorizontalOffset;
             int x = 0;
@@ -42,7 +35,7 @@ namespace DistortionAnalyser
                 int nextX = x + 1;
                 float y = yOffset - (signal.YPoints[index] * VerticalMultiplier);
                 float nextY = yOffset - (signal.YPoints[nextIndex] * VerticalMultiplier);
-                g.DrawLine(pen, new PointF(x, y), new PointF(nextX, nextY));
+                g.DrawLine(SignalPen, new PointF(x, y), new PointF(nextX, nextY));
                 x++;
                 index++;
 
@@ -51,22 +44,36 @@ namespace DistortionAnalyser
                 if (negPeak > signal.YPoints[index])
                     negPeak = signal.YPoints[index];
             }
-
-            if (statPeaks)
+            
+            host.SetStatictic("Positive Peak", posPeak);
+            host.SetStatictic("Negative Peak", negPeak);
+            host.SetStatictic("Peak to Peak", Math.Abs(negPeak) + posPeak);
+            if (Signal.PeakToPeakCalc != 0)
             {
-                host.SetStatictic("Positive Peak", posPeak);
-                host.SetStatictic("Negative Peak", negPeak);
-                host.SetStatictic("Peak to Peak", Math.Abs(negPeak) + posPeak);
-                Signal.PeakToPeakCalc = Math.Abs(negPeak) + posPeak;
+                host.SetStatictic("Distortion%", ((Math.Abs(negPeak) + posPeak) / Signal.PeakToPeakCalc) * 100);
             }
+
+            return true;
+        }
+
+        private Signal SubtractSignals()
+        {
+            var dif = new List<float>();
+            for(var x = 0; x < Signal.NumberOfPoints; x++)
+            {
+                dif.Add(Signal.YPoints[x] - Reference.YPoints[x]);
+            }
+            var signal = new Signal();
+            signal.YPoints = dif.ToArray();
+            signal.NumberOfPoints = dif.Count;
+            return signal;
         }
 
         public void Setup(int w, int h, int count, IHost host = null)
         {
-            SignalColor = Color.FromArgb(180, 30, 230, 255);
+            SignalColor = Color.FromArgb(255, 230, 56, 255);
             SignalPen = new Pen(SignalColor, 1);
-            ReferenceColor = Color.FromArgb(180, 240, 230, 30);
-            ReferencePen = new Pen(ReferenceColor, 1);
+            
         }
     }
 }

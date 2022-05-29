@@ -28,8 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Screen
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Desktop;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ForeColor = System.Drawing.SystemColors.Control;
+            this.Name = "Screen";
+            this.Size = new System.Drawing.Size(146, 146);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

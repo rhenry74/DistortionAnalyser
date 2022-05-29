@@ -93,9 +93,9 @@ namespace DistortionAnalyser
                 var nextInterval = (int)((1000 / FPS) - renderTime);
                 nextInterval = nextInterval < 1 ? 1 : nextInterval;
 
-                Host.SetStatictic("Elapsed", renderTime);
+                //Host.SetStatictic("Elapsed", renderTime);
                 Host.SetStatictic("Next Interval", nextInterval);
-                Host.SetStatictic("Watch", watch.ElapsedMilliseconds);
+                //Host.SetStatictic("Watch", watch.ElapsedMilliseconds);
 
                 if (ShowStats)
                 {
