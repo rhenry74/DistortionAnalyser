@@ -8,9 +8,14 @@ namespace DistortionAnalyser
 {
     internal class Signal
     {
+        public List<string> Attributes { get; internal set; }
         public float[] YPoints { get; set; }
         public int NumberOfPoints { get; set; }
-        public double YMultiplier { get; set; }
-        public double XInterval { get; set; }
+        public double PeakToPeakCalc { get; set; }
+
+        public Signal()
+        {
+            Attributes = new List<string>();
+        }
     }
 }
