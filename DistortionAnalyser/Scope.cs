@@ -14,6 +14,7 @@ namespace DistortionAnalyser
 
         public float VerticalMultiplier { get; set; } = 1;
         public int HorizontalOffset { get; internal set; }
+        public int HorizontalCompression { get; internal set; } = 1;
 
         private Color SignalColor;
         private Pen SignalPen;
@@ -36,15 +37,18 @@ namespace DistortionAnalyser
             float posPeak = 0;
             float negPeak = 0;
 
-            while (index < (host.Width + HorizontalOffset) && index < signal.NumberOfPoints - 1)
+            while (x < (host.Width + HorizontalOffset) && index < signal.NumberOfPoints - 1)
             {
-                int nextIndex = index + 1;
                 int nextX = x + 1;
-                float y = yOffset - (signal.YPoints[index] * VerticalMultiplier);
-                float nextY = yOffset - (signal.YPoints[nextIndex] * VerticalMultiplier);
-                g.DrawLine(pen, new PointF(x, y), new PointF(nextX, nextY));
+                for (var compression = 0; compression < HorizontalCompression; compression++)
+                {                    
+                    int nextIndex = index + 1;
+                    float y = yOffset - (signal.YPoints[index] * VerticalMultiplier);
+                    float nextY = yOffset - (signal.YPoints[nextIndex] * VerticalMultiplier);
+                    g.DrawLine(pen, new PointF(x, y), new PointF(nextX, nextY));
+                    index++;                    
+                }
                 x++;
-                index++;
 
                 if (posPeak < signal.YPoints[index])
                     posPeak = signal.YPoints[index];
