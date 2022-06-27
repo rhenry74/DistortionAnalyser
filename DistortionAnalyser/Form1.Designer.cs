@@ -36,6 +36,8 @@ namespace DistortionAnalyser
             this.label1 = new System.Windows.Forms.Label();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.scope1 = new DistortionAnalyser.Screen();
+            this.differientiator = new DistortionAnalyser.Screen();
             this.label2 = new System.Windows.Forms.Label();
             this.nud_sinBufSize = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,8 +49,8 @@ namespace DistortionAnalyser
             this.label6 = new System.Windows.Forms.Label();
             this.nudSinVert = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.scope1 = new DistortionAnalyser.Screen();
-            this.differientiator = new DistortionAnalyser.Screen();
+            this.label7 = new System.Windows.Forms.Label();
+            this.nud_HorzComp = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -60,6 +62,7 @@ namespace DistortionAnalyser
             ((System.ComponentModel.ISupportInitialize)(this.nudDiffMult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSinVert)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_HorzComp)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
@@ -146,6 +149,36 @@ namespace DistortionAnalyser
             this.splitContainer1.Size = new System.Drawing.Size(1034, 616);
             this.splitContainer1.SplitterDistance = 455;
             this.splitContainer1.TabIndex = 18;
+            // 
+            // scope1
+            // 
+            this.scope1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scope1.BackColor = System.Drawing.Color.Black;
+            this.scope1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scope1.ForeColor = System.Drawing.SystemColors.Control;
+            this.scope1.FPS = 24;
+            this.scope1.Location = new System.Drawing.Point(0, 0);
+            this.scope1.ModelDrawer = null;
+            this.scope1.Name = "scope1";
+            this.scope1.Size = new System.Drawing.Size(1027, 428);
+            this.scope1.TabIndex = 14;
+            // 
+            // differientiator
+            // 
+            this.differientiator.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.differientiator.BackColor = System.Drawing.Color.Black;
+            this.differientiator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.differientiator.ForeColor = System.Drawing.SystemColors.Control;
+            this.differientiator.FPS = 12;
+            this.differientiator.Location = new System.Drawing.Point(3, 3);
+            this.differientiator.ModelDrawer = null;
+            this.differientiator.Name = "differientiator";
+            this.differientiator.Size = new System.Drawing.Size(1024, 152);
+            this.differientiator.TabIndex = 0;
             // 
             // label2
             // 
@@ -234,7 +267,7 @@ namespace DistortionAnalyser
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 393);
+            this.label5.Location = new System.Drawing.Point(18, 534);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 13);
             this.label5.TabIndex = 26;
@@ -248,7 +281,7 @@ namespace DistortionAnalyser
             0,
             0,
             65536});
-            this.nudDiffMult.Location = new System.Drawing.Point(12, 409);
+            this.nudDiffMult.Location = new System.Drawing.Point(17, 550);
             this.nudDiffMult.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -317,41 +350,46 @@ namespace DistortionAnalyser
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sine Wave";
             // 
-            // scope1
+            // label7
             // 
-            this.scope1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scope1.BackColor = System.Drawing.Color.Black;
-            this.scope1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scope1.ForeColor = System.Drawing.SystemColors.Control;
-            this.scope1.FPS = 24;
-            this.scope1.Location = new System.Drawing.Point(0, 0);
-            this.scope1.ModelDrawer = null;
-            this.scope1.Name = "scope1";
-            this.scope1.Size = new System.Drawing.Size(1027, 428);
-            this.scope1.TabIndex = 14;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 416);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(120, 13);
+            this.label7.TabIndex = 31;
+            this.label7.Text = "Horizontal Compression:";
             // 
-            // differientiator
+            // nud_HorzComp
             // 
-            this.differientiator.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.differientiator.BackColor = System.Drawing.Color.Black;
-            this.differientiator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.differientiator.ForeColor = System.Drawing.SystemColors.Control;
-            this.differientiator.FPS = 12;
-            this.differientiator.Location = new System.Drawing.Point(3, 3);
-            this.differientiator.ModelDrawer = null;
-            this.differientiator.Name = "differientiator";
-            this.differientiator.Size = new System.Drawing.Size(1024, 152);
-            this.differientiator.TabIndex = 0;
+            this.nud_HorzComp.Location = new System.Drawing.Point(17, 432);
+            this.nud_HorzComp.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nud_HorzComp.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_HorzComp.Name = "nud_HorzComp";
+            this.nud_HorzComp.Size = new System.Drawing.Size(90, 20);
+            this.nud_HorzComp.TabIndex = 30;
+            this.nud_HorzComp.ThousandsSeparator = true;
+            this.nud_HorzComp.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_HorzComp.ValueChanged += new System.EventHandler(this.nud_HorzComp_ValueChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1195, 640);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.nud_HorzComp);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.nudDiffMult);
@@ -373,6 +411,7 @@ namespace DistortionAnalyser
             ((System.ComponentModel.ISupportInitialize)(this.nudSinVert)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_HorzComp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -398,6 +437,8 @@ namespace DistortionAnalyser
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown nudSinVert;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown nud_HorzComp;
     }
 }
 

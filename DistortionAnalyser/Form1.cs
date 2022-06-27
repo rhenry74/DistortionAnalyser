@@ -62,7 +62,7 @@ namespace DistortionAnalyser
             differientiator.ModelDrawer = Differientiator;
             Differientiator.Setup(differientiator.Width, differientiator.Height, 0, differientiator.Host);
 
-            hScrollBar1.Maximum = Scope.Signal.NumberOfPoints;
+            hScrollBar1.Maximum = (int)(Scope.Signal.NumberOfPoints / nud_HorzComp.Value);
 
             GenerateReference();
         }
@@ -108,8 +108,8 @@ namespace DistortionAnalyser
 
         private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
-            Scope.HorizontalOffset = e.NewValue;
-            Differientiator.HorizontalOffset = e.NewValue;
+            Scope.HorizontalOffset = (int)e.NewValue;
+            Differientiator.HorizontalOffset = (int)e.NewValue;
         }
 
         private void nud_sinBufSize_ValueChanged(object sender, EventArgs e)
@@ -135,6 +135,13 @@ namespace DistortionAnalyser
         private void nudSinVert_ValueChanged(object sender, EventArgs e)
         {
             GenerateReference();
+        }
+
+        private void nud_HorzComp_ValueChanged(object sender, EventArgs e)
+        {
+            Scope.HorizontalCompression = (int)nud_HorzComp.Value;
+            Differientiator.HorizontalCompression = (int)nud_HorzComp.Value;
+            hScrollBar1.Maximum = (int)(Scope.Signal.NumberOfPoints / nud_HorzComp.Value);
         }
     }
 }
