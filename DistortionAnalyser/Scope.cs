@@ -24,7 +24,7 @@ namespace DistortionAnalyser
         public bool DrawOn(Graphics g, IHost host, int elapsed)
         {
             RenderSignal(Signal, g, host, SignalPen, true);
-            RenderSignal(Reference, g, host, ReferencePen);
+            RenderSignal(Reference, g, host, ReferencePen, true);
             return true;
         }
 
@@ -61,7 +61,7 @@ namespace DistortionAnalyser
                 host.SetStatictic("Positive Peak", posPeak);
                 host.SetStatictic("Negative Peak", negPeak);
                 host.SetStatictic("Peak to Peak", Math.Abs(negPeak) + posPeak);
-                Signal.PeakToPeakCalc = Math.Abs(negPeak) + posPeak;
+                signal.PeakToPeakCalc = Math.Abs(negPeak) + posPeak;
             }
         }
 

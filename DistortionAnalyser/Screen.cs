@@ -102,8 +102,8 @@ namespace DistortionAnalyser
                     var yOffset = 0;
                     foreach (var key in Host.Stats.Keys)
                     {
-                        g.DrawString(key, this.Font, new SolidBrush(Color.White), 100, 100 + yOffset);
-                        g.DrawString(Host.Stats[key], this.Font, new SolidBrush(Color.White), 250, 100 + yOffset);
+                        g.DrawString(key, this.Font, new SolidBrush(Color.White), 20, 20 + yOffset);
+                        g.DrawString(Host.Stats[key], this.Font, new SolidBrush(Color.White), 170, 20 + yOffset);
                         yOffset += 20;
                     }
                 }

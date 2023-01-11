@@ -41,7 +41,7 @@ namespace DistortionAnalyser
                         {
                             if (val[0] == '#')
                             {
-                                Scope.Signal.Attributes.Add(val);
+                                Scope.Signal.Attributes.Add("Output: " + val);
                             }
                             else
                             {
@@ -68,6 +68,49 @@ namespace DistortionAnalyser
         }
 
         private void GenerateReference()
+        {
+            if (FileValues == null)
+            {
+                GenerateSineReference();
+            }
+            else
+            {
+                GenerateFileReference();
+            }
+        }
+
+        private List<float> FileValues = null;
+        private void GenerateFileReference()
+        {
+            int sin_buf_size = FileValues.Count;
+            nudSinPhase.Maximum = sin_buf_size - 1;
+            var sin_buf = new double[sin_buf_size];
+
+            double sin_amplitude = (double)nudSinAmp.Value;
+            double sin_vert_offset = (double)nudSinVert.Value;
+
+            for (int x = 0; x < sin_buf_size; x++)
+            {
+                sin_buf[x] = (FileValues[x] * sin_amplitude) - sin_vert_offset;
+            }
+
+            Scope.Reference = new Signal();
+            Scope.Reference.YPoints = new float[Scope.Signal.NumberOfPoints];
+            Scope.Reference.NumberOfPoints = Scope.Signal.NumberOfPoints;
+            int sin_idx = (int)nudSinPhase.Value;
+            for (int idx = 0; idx < Scope.Signal.NumberOfPoints; idx++)
+            {
+                Scope.Reference.YPoints[idx] = (float)sin_buf[sin_idx];
+                sin_idx++;
+                if (sin_idx == sin_buf_size)
+                    sin_idx = 0;
+            }
+
+            Differientiator.Signal = Scope.Signal;
+            Differientiator.Reference = Scope.Reference;
+        }
+
+        private void GenerateSineReference()
         {
             int sin_buf_size = (int)nud_sinBufSize.Value;
             nudSinPhase.Maximum = sin_buf_size - 1;
@@ -142,6 +185,35 @@ namespace DistortionAnalyser
             Scope.HorizontalCompression = (int)nud_HorzComp.Value;
             Differientiator.HorizontalCompression = (int)nud_HorzComp.Value;
             hScrollBar1.Maximum = (int)(Scope.Signal.NumberOfPoints / nud_HorzComp.Value);
+        }
+
+        private void Load_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.Text = Path.GetFileName(openFileDialog1.FileName);
+                using (var f = openFileDialog1.OpenFile())
+                {
+                    var reader = new StreamReader(f);
+                    FileValues = new List<float>();
+
+                    while (!reader.EndOfStream)
+                    {
+                        var val = reader.ReadLine();
+                        if (!string.IsNullOrEmpty(val))
+                        {
+                            if (val[0] == '#')
+                            {
+                                Scope.Signal.Attributes.Add("Input: " + val);
+                            }
+                            else
+                            {
+                                FileValues.Add(float.Parse(val));
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -49,6 +49,7 @@ namespace DistortionAnalyser
             this.label6 = new System.Windows.Forms.Label();
             this.nudSinVert = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.nud_HorzComp = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -230,11 +231,6 @@ namespace DistortionAnalyser
             0,
             65536});
             this.nudSinAmp.Location = new System.Drawing.Point(5, 73);
-            this.nudSinAmp.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
             this.nudSinAmp.Name = "nudSinAmp";
             this.nudSinAmp.Size = new System.Drawing.Size(90, 20);
             this.nudSinAmp.TabIndex = 21;
@@ -258,6 +254,11 @@ namespace DistortionAnalyser
             // nudSinPhase
             // 
             this.nudSinPhase.Location = new System.Drawing.Point(5, 112);
+            this.nudSinPhase.Maximum = new decimal(new int[] {
+            2000000,
+            0,
+            0,
+            0});
             this.nudSinPhase.Name = "nudSinPhase";
             this.nudSinPhase.Size = new System.Drawing.Size(90, 20);
             this.nudSinPhase.TabIndex = 23;
@@ -321,11 +322,6 @@ namespace DistortionAnalyser
             0,
             65536});
             this.nudSinVert.Location = new System.Drawing.Point(5, 151);
-            this.nudSinVert.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
             this.nudSinVert.Name = "nudSinVert";
             this.nudSinVert.Size = new System.Drawing.Size(90, 20);
             this.nudSinVert.TabIndex = 27;
@@ -335,6 +331,7 @@ namespace DistortionAnalyser
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.nud_sinBufSize);
@@ -345,10 +342,20 @@ namespace DistortionAnalyser
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Location = new System.Drawing.Point(12, 171);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(130, 185);
+            this.groupBox1.Size = new System.Drawing.Size(130, 212);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sine Wave";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(9, 178);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 29;
+            this.button1.Text = "Load";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Load_Click);
             // 
             // label7
             // 
@@ -439,6 +446,7 @@ namespace DistortionAnalyser
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown nud_HorzComp;
+        private System.Windows.Forms.Button button1;
     }
 }
 

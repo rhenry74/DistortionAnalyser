@@ -29,6 +29,8 @@ namespace DistortionAnalyser
 
             float posPeak = 0;
             float negPeak = 0;
+            double vSum = 0;
+            int vCount = 0;
 
             while (x < (host.Width + HorizontalOffset) && index < signal.NumberOfPoints - 1)
             {
@@ -39,6 +41,9 @@ namespace DistortionAnalyser
                     float y = yOffset - (signal.YPoints[index] * VerticalMultiplier);
                     float nextY = yOffset - (signal.YPoints[nextIndex] * VerticalMultiplier);
                     g.DrawLine(SignalPen, new PointF(x, y), new PointF(nextX, nextY));
+
+                    vSum += Math.Abs(signal.YPoints[index]);
+                    vCount++;
                     index++;
                 }
                 x++;
@@ -47,6 +52,7 @@ namespace DistortionAnalyser
                     posPeak = signal.YPoints[index];
                 if (negPeak > signal.YPoints[index])
                     negPeak = signal.YPoints[index];
+                
             }
             
             host.SetStatictic("Positive Peak", posPeak);
@@ -55,6 +61,9 @@ namespace DistortionAnalyser
             if (Signal.PeakToPeakCalc != 0)
             {
                 host.SetStatictic("Distortion%", ((Math.Abs(negPeak) + posPeak) / Signal.PeakToPeakCalc) * 100);
+                host.SetStatictic("Distortion vs. Source%", ((Math.Abs(negPeak) + posPeak) / this.Reference.PeakToPeakCalc) * 100);
+                host.SetStatictic("SNR", (this.Reference.PeakToPeakCalc) / (Math.Abs(negPeak) + posPeak));
+                host.SetStatictic("NAvg", vSum / vCount);
             }
 
             return true;
